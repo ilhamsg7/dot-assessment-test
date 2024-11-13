@@ -3,7 +3,7 @@ import PostService from "../service/PostService";
 import { wrapError } from "../utils/wrapper.utils";
 import { ApiResponse } from "../responses/ApiResponse";
 import { Request, Response } from 'express';
-import { postRequest, updatePostRequest } from "../../schema/post";
+import { postRequest, PostResponse, updatePostRequest } from "../../schema/post";
 
 @injectable()
 class PostController {
@@ -46,6 +46,43 @@ class PostController {
             let id = Number(req.params.id);
             const response = await this.service.deleteData(id);
             return ApiResponse.response(res, response, 'Data deleted successfully', false);
+        });
+    }
+
+    async getAllDataFromDatabase(req: Request, res: Response) {
+        await wrapError(res, async () => {
+            const data = await this.service.all();
+
+            const response: PostResponse = {
+                message: "Data fetched successfully",
+                data: data.map((item: any) => {
+                    return {
+                        id: item.id ?? "",
+                        title: item.title ?? "",
+                        body: item.body ?? "",
+                        userId: item.userId ?? "",
+                    }
+                })
+            }
+            return ApiResponse.response(res, response.data, response.message, false);
+        });
+    }
+
+    async getDataByIdFromDatabase(req: Request, res: Response) {
+        await wrapError(res, async () => {
+            let id = Number(req.params.id);
+            const data = await this.service.getById(id);
+
+            const response: PostResponse = {
+                message: "Data fetched successfully",
+                data: {
+                    id: data.id ?? "",
+                    title: data.title ?? "",
+                    body: data.body ?? "",
+                    userId: data.userId ?? "",
+                }
+            }
+            return ApiResponse.response(res, response.data, response.message, false);
         });
     }
 }

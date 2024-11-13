@@ -12,4 +12,7 @@ userRouter.post('/users/', (req, res) => userController.create(req, res))
 userRouter.put('/users/:id', (req, res) => userController.update(req, res))
 userRouter.delete('/users/:id', (req, res) => userController.delete(req, res))
 
+userRouter.get('/users-local', (req, res) => userController.getAllDataFromDatabase(req, res))
+userRouter.get('/users-local/:id', (req, res) => userController.getDataByIdFromDatabase(req, res))
+
 export default userRouter;

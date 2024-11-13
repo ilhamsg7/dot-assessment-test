@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosRequestConfig } from "axios";
+import axios from "axios";
 import { env } from "../env";
 
 export const httpClient = axios.create({

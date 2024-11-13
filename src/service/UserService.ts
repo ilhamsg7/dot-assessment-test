@@ -4,6 +4,7 @@ import UserContract from '../contract/UserContract';
 import { injectable, inject } from 'tsyringe';
 import { httpClient } from "../utils/http.utils";
 import { RegisterRequest, RegisterResponse, UpdateUserRequest } from '../../schema/auth';
+import bcrypt from "bcryptjs";
 
 @injectable()
 class UserService extends BaseService<'user'> implements UserContract {
@@ -26,8 +27,13 @@ class UserService extends BaseService<'user'> implements UserContract {
         const { password, ...postData } = data;
         await httpClient.post("/users", postData);
 
+        let dataPasswords = await bcrypt.hash(password, 10);
+
         let result = await this.prisma.user.create({
-            data: data,
+            data: {
+                ...postData,
+                password: dataPasswords,
+            },
             select: {
                 name: true,
                 email: true,

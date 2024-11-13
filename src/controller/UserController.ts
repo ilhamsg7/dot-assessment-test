@@ -3,7 +3,7 @@ import UserService from "../service/UserService";
 import { Request, Response } from 'express';
 import { wrapError } from "../utils/wrapper.utils";
 import { ApiResponse } from "../responses/ApiResponse";
-import { registerRequest, updateUserRequest } from "../../schema/auth";
+import { registerRequest, RegisterResponse, updateUserRequest } from "../../schema/auth";
 
 @injectable()
 class UserController {
@@ -46,6 +46,43 @@ class UserController {
             let id = Number(req.params.id);
             const response = await this.service.deleteData(id);
             return ApiResponse.response(res, response, 'Data deleted successfully', false);
+        });
+    }
+
+    async getAllDataFromDatabase(req: Request, res: Response) {
+        await wrapError(res, async () => {
+            const data = await this.service.all();
+
+            const response: RegisterResponse = {
+                message: "Data fetched successfully",
+                data: data.map((item: any) => {
+                    return {
+                        name: item.name ?? "",
+                        email: item.email ?? "",
+                        userName: item.userName ?? "",
+                        phone: item.phone ?? "",
+                    }
+                })
+            }
+            return ApiResponse.response(res, response.data, response.message, false);
+        });
+    }
+
+    async getDataByIdFromDatabase(req: Request, res: Response) {
+        await wrapError(res, async () => {
+            let id = Number(req.params.id);
+            const data = await this.service.findById(id);
+            const response: RegisterResponse = {
+                message: "Data fetched successfully",
+                data: {
+                    name: data.name ?? "",
+                    email: data.email ?? "",
+                    userName: data.userName ?? "",
+                    phone: data.phone ?? "",
+
+                }
+            }
+            return ApiResponse.response(res, response.data, response.message, false);
         });
     }
 }
