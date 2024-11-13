@@ -19,6 +19,7 @@ model User {
   post      Post?
 
   @@map("users")
+  @@index([id, name])
 }
 
 model Post {
@@ -31,6 +32,7 @@ model Post {
   user      User          @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("posts")
+  @@index([id, userId, title])
 }
 
 

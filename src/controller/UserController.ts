@@ -41,6 +41,15 @@ class UserController {
         });
     }
 
+    async updatePatch(req: Request, res: Response) {
+        await wrapError(res, async () => {
+            let id = Number(req.params.id);
+            let dataInput = updateUserRequest.parse(req.body);
+            const response = await this.service.editData(id, dataInput);
+            return ApiResponse.response(res, response.data, response.message, false);
+        });
+    }
+
     async delete(req: Request, res: Response) {
         await wrapError(res, async () => {
             let id = Number(req.params.id);

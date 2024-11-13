@@ -11,6 +11,7 @@ userRouter.get('/users', cacheMiddleware, (req, res) => userController.index(req
 userRouter.get('/users/:id', cacheMiddleware, (req, res) => userController.show(req, res))
 userRouter.post('/users/', (req, res) => userController.create(req, res))
 userRouter.put('/users/:id', (req, res) => userController.update(req, res))
+userRouter.patch('/users/:id/patch', (req, res) => userController.updatePatch(req, res))
 userRouter.delete('/users/:id', (req, res) => userController.delete(req, res))
 
 userRouter.get('/users-local', cacheMiddleware, (req, res) => userController.getAllDataFromDatabase(req, res))

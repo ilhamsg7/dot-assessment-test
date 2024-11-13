@@ -14,7 +14,7 @@
   "prisma": {
     "prisma:generate": "prisma generate --schema=./prisma/schema.prisma",
     "prisma": "prisma",
-    "seed": "tsx ./prisma/seed.ts"
+    "seed": "pnpm exec tsx ./prisma/seed.ts"
   },
   "keywords": [],
   "author": "",

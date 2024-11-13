@@ -73,6 +73,32 @@ class PostService extends BaseService<'post'> implements PostContract {
         return response;
     }
 
+    async editDataPatch(id: number, data: UpdatePostRequest): Promise<PostResponse> {
+        const putData = await httpClient.patch(`/posts/${id}`, data);
+
+        let result = await this.prisma.post.update({
+            where: { id: id },
+            data: data,
+            select: {
+                id: true,
+                userId: true,
+                title: true,
+                body: true,
+            }
+        });
+
+        let response: PostResponse = {
+            message: "Data updated successfully",
+            data: {
+                id: result.id ?? "",
+                userId: result.userId ?? "",
+                title: result.title ?? "",
+                body: result.body ?? "",
+            }
+        }
+        return response;
+    }
+
     async deleteData(id: number): Promise<boolean> {
         const deleteData = await httpClient.delete(`/posts/${id}`);
         await this.prisma.post.delete({

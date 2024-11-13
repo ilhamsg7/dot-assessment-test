@@ -80,6 +80,32 @@ class UserService extends BaseService<'user'> implements UserContract {
         return response;
     }
 
+    async editDataPatch(id: number, data: UpdateUserRequest): Promise<RegisterResponse> {
+        const patchData = await httpClient.patch(`/users/${id}`, data);
+
+        let result = await this.prisma.user.update({
+            where: { id: id },
+            data: data,
+            select: {
+                name: true,
+                email: true,
+                userName: true,
+                phone: true,
+            }
+        });
+
+        let response: RegisterResponse = {
+            message: "Data updated successfully",
+            data: {
+                name: result.name ?? "",
+                email: result.email ?? "",
+                userName: result.userName ?? "",
+                phone: result.phone ?? "",
+            }
+        }
+        return response;
+    }
+
     async deleteData(id: number): Promise<boolean> {
         const deleteData = await httpClient.delete(`/users/${id}`);
         await this.prisma.user.delete({

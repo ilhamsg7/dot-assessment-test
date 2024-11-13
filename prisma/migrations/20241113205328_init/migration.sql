@@ -12,6 +12,7 @@ CREATE TABLE `users` (
     UNIQUE INDEX `users_email_key`(`email`),
     UNIQUE INDEX `users_phone_key`(`phone`),
     UNIQUE INDEX `users_user_name_key`(`user_name`),
+    INDEX `users_id_name_idx`(`id`, `name`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -25,6 +26,7 @@ CREATE TABLE `posts` (
     `user_id` INTEGER NOT NULL,
 
     UNIQUE INDEX `posts_user_id_key`(`user_id`),
+    INDEX `posts_id_user_id_title_idx`(`id`, `user_id`, `title`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
