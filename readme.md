@@ -19,11 +19,15 @@ This project demonstrates a Node.js (Express JS) application with TypeScript tha
     ```bash
     pnpm install
    ```
-3. Setup your database in .env file
+3. Copy .env.example to .env
+    ```bash
+        cp .env.example .env
+    ```
+4. Setup your database in .env file
     ```
         DATABASE_URL=mysql://your_username:your_password@localhost:3306/your_database
     ```
-3. Migrate and run seeder for database
+5. Migrate and run seeder for database
     ```bash
         pnpx migrate  dev
     ```
@@ -31,7 +35,7 @@ This project demonstrates a Node.js (Express JS) application with TypeScript tha
     ```bash
         pnpm exec tsx ./prisma/seed.ts
     ```
-4. To develop all apps and packages, run the following command
+6. To develop all apps and packages, run the following command
     ```bash
         pnpm run dev
     ```
