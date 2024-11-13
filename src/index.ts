@@ -6,6 +6,9 @@ import rateLimit from "express-rate-limit";
 import router from "./route";
 import "./container.register"; 
 import { env } from "./env";
+import helmet from "helmet";
+import hpp from "hpp";
+import cookieParser from "cookie-parser";
 
 
 const app = express();
@@ -20,6 +23,9 @@ app.use(
 
 app.use(express.json());
 
+app.use(helmet()); // For HTTP Header Security
+app.use(hpp()); // For HTTP Parameter Pollution
+app.use(cookieParser()); // For parsing cookies
 app.use(
   cors({
     origin: env.ALLOWED_CORS_ORIGIN,

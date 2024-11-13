@@ -5,14 +5,14 @@ const prisma = new PrismaClient();
 
 const userSeeder = async () => {
     try {
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 30; i++) {
             await prisma.user.createMany({
                 data: {
                     userName: faker.internet.username(),
                     email: faker.internet.email(),
                     password: faker.internet.password(),
-                    firstName: faker.person.firstName(),
-                    lastName: faker.person.lastName(),
+                    name: faker.person.fullName(),
+                    phone: faker.phone.number(),
                 }
             });
         }
