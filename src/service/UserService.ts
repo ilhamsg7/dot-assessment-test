@@ -23,7 +23,8 @@ class UserService extends BaseService<'user'> implements UserContract {
     }
 
     async createData(data: RegisterRequest): Promise<RegisterResponse> {
-        const postData = await httpClient.post("/users", data);
+        const { password, ...postData } = data;
+        await httpClient.post("/users", postData);
 
         let result = await this.prisma.user.create({
             data: data,

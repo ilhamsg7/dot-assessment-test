@@ -28,7 +28,7 @@ class UserController {
         await wrapError(res, async () => {
             let dataInput = registerRequest.parse(req.body);
             const response = await this.service.createData(dataInput);
-            return ApiResponse.response(res, response, 'Data created successfully', false);
+            return ApiResponse.response(res, response.data, response.message, false);
         });
     }
 
@@ -37,7 +37,7 @@ class UserController {
             let id = Number(req.params.id);
             let dataInput = updateUserRequest.parse(req.body);
             const response = await this.service.editData(id, dataInput);
-            return ApiResponse.response(res, response, 'Data updated successfully', false);
+            return ApiResponse.response(res, response.data, response.message, false);
         });
     }
 

@@ -1,5 +1,5 @@
 export type BaseResponse<T> = {
-    message: string;
+    message?: string;
     data?: T;
     error?: Record<string, string>;
   };
