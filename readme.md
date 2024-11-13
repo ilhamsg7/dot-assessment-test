@@ -29,7 +29,7 @@ This project demonstrates a Node.js (Express JS) application with TypeScript tha
     ```
 5. Migrate and run seeder for database
     ```bash
-        pnpx migrate  dev
+        pnpx prisma migrate dev
     ```
 
     ```bash
