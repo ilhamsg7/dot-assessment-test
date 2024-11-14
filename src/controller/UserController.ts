@@ -4,10 +4,11 @@ import { Request, Response } from 'express';
 import { wrapError } from "../utils/wrapper.utils";
 import { ApiResponse } from "../responses/ApiResponse";
 import { registerRequest, RegisterResponse, updateUserRequest } from "../../schema/auth";
+import UserContract from "../contract/UserContract";
 
 @injectable()
 class UserController {
-    constructor(@inject("UserContract") private service: UserService) { }
+    constructor(@inject("UserContract") private service: UserContract) { }
 
     async index(req: Request, res: Response) {
         await wrapError(res, async () => {

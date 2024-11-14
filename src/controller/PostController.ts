@@ -4,10 +4,11 @@ import { wrapError } from "../utils/wrapper.utils";
 import { ApiResponse } from "../responses/ApiResponse";
 import { Request, Response } from 'express';
 import { postRequest, PostResponse, updatePostRequest } from "../../schema/post";
+import PostContract from "../contract/PostContract";
 
 @injectable()
 class PostController {
-    constructor(@inject("PostContract") private service: PostService) { }
+    constructor(@inject("PostContract") private service: PostContract) { }
 
     async index(req: Request, res: Response) {
         await wrapError(res, async () => {
